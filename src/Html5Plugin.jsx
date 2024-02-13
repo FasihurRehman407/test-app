@@ -31,9 +31,14 @@ const Html5Plugin = (props) => {
       throw "qrCodeSuccessCallback is required callback.";
     }
     const html5QrcodeScanner = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
-    html5QrcodeScanner.applyVideoConstraints({
-      advanced: [{ facingMode: "environment" }],
-    });
+    html5QrcodeScanner
+      .applyVideoConstraints({
+        facingMode: "environment",
+      })
+      .then(() => {
+        console.log("idk ...");
+      });
+
     html5QrcodeScanner.render(props.qrCodeSuccessCallback, props.qrCodeErrorCallback);
 
     // cleanup function when component will unmount
