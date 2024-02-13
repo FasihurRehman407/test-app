@@ -34,6 +34,8 @@ function BarCodeReader() {
           target: videoRef.current,
           constraints: {
             facingMode: "environment", // Use rear camera
+            width: 1280,
+            height: 720,
           },
         },
         decoder: {
@@ -53,6 +55,17 @@ function BarCodeReader() {
             "code_93_reader",
             "code_39_reader",
           ],
+          debug: {
+            drawBoundingBox: true,
+            showFrequency: false,
+            drawScanline: true,
+            showPattern: true,
+          },
+          multiple: false,
+        },
+        locator: {
+          halfSample: true,
+          patchSize: "medium",
         },
       },
       (err) => {
@@ -76,7 +89,7 @@ function BarCodeReader() {
     setScanning(true);
     setResult("");
   };
-
+  console.log(window.innerWidth);
   return (
     <div>
       <button onClick={handleStartScan}>Start Scan</button>
@@ -84,7 +97,7 @@ function BarCodeReader() {
         <video
           id="myVideo"
           style={{
-            width: "400px",
+            width: window.innerWidth,
             height: "400px",
             objectFit: "cover",
           }}
