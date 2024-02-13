@@ -110,6 +110,7 @@ function BarCodeReader() {
               width={window.innerWidth}
               style={{
                 objectFit: "cover",
+                zIndex: 999999999
               }}
             />
           </>
