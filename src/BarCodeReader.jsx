@@ -77,18 +77,32 @@ function BarCodeReader() {
   return (
     <div>
       <button onClick={handleStartScan}>Start Scan</button>
-      {scanning && (
-        <video
-          id="myVideo"
-          style={{
-            width: window.innerWidth,
-            height: "400px",
-            objectFit: "cover",
-          }}
-          ref={videoRef}
-          autoPlay
-        />
-      )}
+      <div style={{ position: "relative" }}>
+        {scanning && (
+          <video
+            id="myVideo"
+            style={{
+              width: window.innerWidth,
+              height: "400px",
+              objectFit: "cover",
+            }}
+            ref={videoRef}
+            autoPlay
+          />
+        )}
+        {scanning && (
+          <div
+            style={{
+              position: "absolute",
+              width: "180px",
+              height: "50px",
+              border: "1px solid red",
+              top: "40%",
+              left: "25%",
+            }}
+          ></div>
+        )}
+      </div>
       <input type="text" value={result} placeholder="BarCodeResult" readOnly />
     </div>
   );
