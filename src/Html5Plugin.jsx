@@ -7,8 +7,7 @@ const qrcodeRegionId = "html5qr-code-full-region";
 const createConfig = (props) => {
   let config = {
     videoConstraints: {
-      facingMode: { exact: "environment" },
-      autoGainControl: true,
+      facingMode: "environment",
     },
   };
   if (props.fps) {
