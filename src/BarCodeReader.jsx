@@ -94,8 +94,8 @@ function BarCodeReader() {
           <div
             style={{
               position: "absolute",
-              width: "180px",
-              height: "50px",
+              width: "210px",
+              height: "60px",
               border: "1px solid red",
               top: "40%",
               left: "25%",
