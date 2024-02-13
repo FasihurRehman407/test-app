@@ -28,7 +28,7 @@ function BarCodeReader() {
   const initQuagga = () => {
     Quagga.init(
       {
-        locate: "false",
+        locate: false,
         locator: {
           patchSize: "medium",
         },
@@ -38,10 +38,6 @@ function BarCodeReader() {
           target: videoRef.current,
           constraints: {
             facingMode: "environment", // Use rear camera
-          },
-          area: {
-            top: "50%", // top offset
-            left: "50%", // left offset
           },
         },
         decoder: {
