@@ -97,6 +97,9 @@ function BarCodeReader() {
           objectFit: "cover",
           zIndex: 999999999,
         }}
+        videoConstraints={{
+          facingMode: "environment",
+        }}
       />
       <button onClick={handleStartScan}>Start Scan</button>
       <div style={{ position: "relative" }}>
@@ -121,10 +124,13 @@ function BarCodeReader() {
                 objectFit: "cover",
                 zIndex: 999999999,
               }}
+              videoConstraints={{
+                facingMode: "environment",
+              }}
             />
           </>
         )}
-        {scanning && (
+        {/* {scanning && (
           <div
             style={{
               position: "absolute",
@@ -135,7 +141,7 @@ function BarCodeReader() {
               left: "25%",
             }}
           ></div>
-        )}
+        )} */}
       </div>
       <input type="text" value={result} placeholder="BarCodeResult" readOnly />
     </div>
