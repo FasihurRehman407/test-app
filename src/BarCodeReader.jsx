@@ -28,6 +28,10 @@ function BarCodeReader() {
   const initQuagga = () => {
     Quagga.init(
       {
+        locate: "false",
+        locator: {
+          patchSize: "medium",
+        },
         inputStream: {
           name: "Live",
           type: "LiveStream",
@@ -36,9 +40,9 @@ function BarCodeReader() {
             facingMode: "environment", // Use rear camera
           },
           area: {
-            top: "0%", // top offset
-            left: "0%", // left offset
-          },   
+            top: "50%", // top offset
+            left: "50%", // left offset
+          },
         },
         decoder: {
           readers: [
