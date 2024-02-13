@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Quagga from "@ericblade/quagga2";
+import Webcam from "react-webcam";
 
 function BarCodeReader() {
   const [scanning, setScanning] = useState(false);
@@ -78,16 +79,27 @@ function BarCodeReader() {
       <button onClick={handleStartScan}>Start Scan</button>
       <div style={{ position: "relative" }}>
         {scanning && (
-          <video
-            id="myVideo"
-            style={{
-              width: window.innerWidth,
-              height: "400px",
-              objectFit: "cover",
-            }}
-            ref={videoRef}
-            autoPlay
-          />
+          <>
+            {/* <video
+              id="myVideo"
+              style={{
+                width: window.innerWidth,
+                height: "400px",
+                objectFit: "cover",
+              }}
+              ref={videoRef}
+              autoPlay
+            /> */}
+            <Webcam
+              audio={false}
+              height={400}
+              ref={videoRef}
+              width={window.innerWidth}
+              style={{
+                objectFit: "cover",
+              }}
+            />
+          </>
         )}
         {scanning && (
           <div
