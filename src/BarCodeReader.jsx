@@ -36,9 +36,9 @@ function BarCodeReader() {
             facingMode: "environment", // Use rear camera
           },
           area: {
-            top: "50%", // top offset
-            left: "50%", // left offset
-          },
+            top: "0%", // top offset
+            left: "0%", // left offset
+          },   
         },
         decoder: {
           readers: [
@@ -56,7 +56,7 @@ function BarCodeReader() {
             "i2of5_reader",
             "code_93_reader",
             "code_39_reader",
-          ], // barcode formats
+          ],
         },
       },
       (err) => {
