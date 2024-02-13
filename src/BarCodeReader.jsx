@@ -34,8 +34,6 @@ function BarCodeReader() {
           target: videoRef.current,
           constraints: {
             facingMode: "environment", // Use rear camera
-            width: 1280,
-            height: 720,
           },
         },
         decoder: {
@@ -63,6 +61,7 @@ function BarCodeReader() {
           },
           multiple: false,
         },
+        locate: false,
         locator: {
           halfSample: true,
           patchSize: "medium",
