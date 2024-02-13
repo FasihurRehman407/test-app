@@ -25,11 +25,11 @@ function BarCodeReader() {
   //   };
   // }, [scanning]);
   useEffect(() => {
-    if (scanning) {
-      initQuagga();
-    } else {
-      Quagga.stop();
-    }
+    // if (scanning) {
+    initQuagga();
+    // } else {
+    // Quagga.stop();
+    // }
     return () => {
       Quagga.stop();
     };
@@ -100,6 +100,7 @@ function BarCodeReader() {
         videoConstraints={{
           facingMode: "environment",
         }}
+        ref={webcamRef}
       />
       <button onClick={handleStartScan}>Start Scan</button>
       <div style={{ position: "relative" }}>
