@@ -1,4 +1,3 @@
-import "./App.css";
 import BarCodeReader from "./BarCodeReader";
 
 function App() {
