@@ -10,8 +10,11 @@ function App() {
   };
   return (
     <div className="App">
+      This is a test branch
       {/* <BarCodeReader /> */}
-      {decodedResult && <div>Scanned Result is: {decodedResult.decodedText}</div>}
+      {decodedResult && (
+        <div>Scanned Result is: {decodedResult.decodedText}</div>
+      )}
       <Html5Plugin
         fps={10}
         qrbox={250}
