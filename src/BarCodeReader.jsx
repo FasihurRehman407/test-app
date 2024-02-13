@@ -5,17 +5,29 @@ import Webcam from "react-webcam";
 function BarCodeReader() {
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState("");
-  const videoRef = useRef(null);
+  // const videoRef = useRef(null);
+  const webcamRef = useRef(null);
+  // useEffect(() => {
+  //   if (scanning) {
+  //     navigator.mediaDevices
+  //       .getUserMedia({ video: true })
+  //       .then((stream) => {
+  //         console.log(stream);
+  //         videoRef.current.srcObject = stream;
+  //         initQuagga();
+  //       })
+  //       .catch((err) => console.error("Error accessing camera:", err));
+  //   } else if (Quagga.initialized) {
+  //     Quagga.stop();
+  //   }
+  //   return () => {
+  //     Quagga.stop();
+  //   };
+  // }, [scanning]);
   useEffect(() => {
     if (scanning) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then((stream) => {
-          videoRef.current.srcObject = stream;
-          initQuagga();
-        })
-        .catch((err) => console.error("Error accessing camera:", err));
-    } else if (Quagga.initialized) {
+      initQuagga();
+    } else {
       Quagga.stop();
     }
     return () => {
@@ -29,7 +41,8 @@ function BarCodeReader() {
         inputStream: {
           name: "Live",
           type: "LiveStream",
-          target: videoRef.current,
+          // target: videoRef.current,
+          target: webcamRef.current.video,
           constraints: {
             facingMode: "environment",
           },
@@ -93,7 +106,7 @@ function BarCodeReader() {
             <Webcam
               audio={false}
               height={400}
-              ref={videoRef}
+              ref={webcamRef}
               width={window.innerWidth}
               style={{
                 objectFit: "cover",
