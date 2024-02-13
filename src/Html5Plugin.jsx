@@ -5,7 +5,11 @@ const qrcodeRegionId = "html5qr-code-full-region";
 
 // Creates the configuration object for Html5QrcodeScanner.
 const createConfig = (props) => {
-  let config = {};
+  let config = {
+    videoConstraints: {
+      facingMode: "environment",
+    },
+  };
   if (props.fps) {
     config.fps = props.fps;
   }
@@ -30,15 +34,9 @@ const Html5Plugin = (props) => {
     if (!props.qrCodeSuccessCallback) {
       throw "qrCodeSuccessCallback is required callback.";
     }
+    console.log("Initializing Html5QrcodeScanner...");
     const html5QrcodeScanner = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
-    html5QrcodeScanner
-      .applyVideoConstraints({
-        facingMode: "environment",
-      })
-      .then(() => {
-        console.log("idk ...");
-      });
-
+    console.log("Html5QrcodeScanner initialized.", html5QrcodeScanner);
     html5QrcodeScanner.render(props.qrCodeSuccessCallback, props.qrCodeErrorCallback);
 
     // cleanup function when component will unmount
