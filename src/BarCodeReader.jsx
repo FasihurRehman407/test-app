@@ -39,6 +39,10 @@ function BarCodeReader() {
           constraints: {
             facingMode: "environment", // Use rear camera
           },
+          area: {
+            top: "50%", // top offset
+            left: "50%", // left offset
+          },
         },
         decoder: {
           readers: [
