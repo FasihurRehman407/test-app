@@ -89,6 +89,15 @@ function BarCodeReader() {
   };
   return (
     <div>
+      <Webcam
+        audio={false}
+        height={400}
+        width={window.innerWidth}
+        style={{
+          objectFit: "cover",
+          zIndex: 999999999,
+        }}
+      />
       <button onClick={handleStartScan}>Start Scan</button>
       <div style={{ position: "relative" }}>
         {scanning && (
@@ -110,7 +119,7 @@ function BarCodeReader() {
               width={window.innerWidth}
               style={{
                 objectFit: "cover",
-                zIndex: 999999999
+                zIndex: 999999999,
               }}
             />
           </>
