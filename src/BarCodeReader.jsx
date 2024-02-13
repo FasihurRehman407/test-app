@@ -50,7 +50,6 @@ function BarCodeReader() {
             "code_93_reader",
             "code_39_reader",
           ],
-          multiple: false,
         },
       },
       (err) => {
