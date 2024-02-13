@@ -5,7 +5,6 @@ function BarCodeReader() {
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState("");
   const videoRef = useRef(null);
-
   useEffect(() => {
     if (scanning) {
       navigator.mediaDevices
@@ -18,9 +17,7 @@ function BarCodeReader() {
     } else if (Quagga.initialized) {
       Quagga.stop();
     }
-
     return () => {
-      // Clean up
       Quagga.stop();
     };
   }, [scanning]);
@@ -33,7 +30,7 @@ function BarCodeReader() {
           type: "LiveStream",
           target: videoRef.current,
           constraints: {
-            facingMode: "environment", // Use rear camera
+            facingMode: "environment",
           },
         },
         decoder: {
@@ -53,18 +50,7 @@ function BarCodeReader() {
             "code_93_reader",
             "code_39_reader",
           ],
-          debug: {
-            drawBoundingBox: true,
-            showFrequency: false,
-            drawScanline: true,
-            showPattern: true,
-          },
           multiple: false,
-        },
-        locate: false,
-        locator: {
-          halfSample: true,
-          patchSize: "medium",
         },
       },
       (err) => {
@@ -88,7 +74,6 @@ function BarCodeReader() {
     setScanning(true);
     setResult("");
   };
-  console.log(window.innerWidth);
   return (
     <div>
       <button onClick={handleStartScan}>Start Scan</button>
