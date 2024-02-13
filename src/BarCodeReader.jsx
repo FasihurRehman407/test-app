@@ -4,23 +4,34 @@ import Quagga from "@ericblade/quagga2";
 function BarCodeReader() {
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState("");
+  const [stream, setStream] = useState(null);
   const videoRef = useRef(null);
+
   useEffect(() => {
-    if (scanning) {
+    if (scanning && stream === null) {
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream) => {
           videoRef.current.srcObject = stream;
-          initQuagga();
+          setStream(stream);
         })
         .catch((err) => console.error("Error accessing camera:", err));
-    } else if (Quagga.initialized) {
-      Quagga.stop();
+    } else if (!scanning && stream !== null) {
+      stopStream();
     }
     return () => {
-      Quagga.stop();
+      if (stream !== null) {
+        stopStream();
+      }
     };
-  }, [scanning]);
+  }, [scanning, stream]);
+
+  const stopStream = () => {
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+    setStream(null);
+  };
 
   const initQuagga = () => {
     Quagga.init(
@@ -72,7 +83,9 @@ function BarCodeReader() {
   const handleStartScan = () => {
     setScanning(true);
     setResult("");
+    initQuagga();
   };
+
   return (
     <div>
       <button onClick={handleStartScan}>Start Scan</button>
