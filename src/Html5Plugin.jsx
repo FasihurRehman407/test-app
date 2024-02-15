@@ -1,53 +1,52 @@
-import { Html5QrcodeScanner } from "html5-qrcode";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Html5Qrcode } from "html5-qrcode";
 
 const qrcodeRegionId = "html5qr-code-full-region";
 
-// Creates the configuration object for Html5QrcodeScanner.
-const createConfig = (props) => {
-  let config = {
-    videoConstraints: {
-      facingMode: "environment",
-    },
-  };
-  if (props.fps) {
-    config.fps = props.fps;
-  }
-  if (props.qrbox) {
-    config.qrbox = props.qrbox;
-  }
-  if (props.aspectRatio) {
-    config.aspectRatio = props.aspectRatio;
-  }
-  if (props.disableFlip !== undefined) {
-    config.disableFlip = props.disableFlip;
-  }
-  return config;
-};
-
 const Html5Plugin = (props) => {
-  useEffect(() => {
-    // when component mounts
-    const config = createConfig(props);
-    const verbose = props.verbose === true;
-    // Suceess callback is required.
-    if (!props.qrCodeSuccessCallback) {
-      throw "qrCodeSuccessCallback is required callback.";
-    }
-    console.log("Initializing Html5QrcodeScanner...");
-    const html5QrcodeScanner = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
-    console.log("Html5QrcodeScanner initialized.", html5QrcodeScanner);
-    html5QrcodeScanner.render(props.qrCodeSuccessCallback, props.qrCodeErrorCallback);
+  const [qrCode, qrCodeSet] = useState(null);
 
-    // cleanup function when component will unmount
+  const onError = (errorMsg, errorObj) => {
+    console.log();
+  };
+
+  useEffect(() => {
+    const config = {
+      fps: props?.fps,
+      qrbox: props?.qrbox,
+      aspectRatio: props?.aspectRatio,
+      disableFlip: props?.disableFlip,
+    };
+    const qrCode = new Html5Qrcode(qrcodeRegionId, props?.verbose);
+    qrCodeSet(qrCode);
+    qrCode.start({ facingMode: props.mode }, config, props.qrCodeSuccessCallback, onError);
     return () => {
-      html5QrcodeScanner.clear().catch((error) => {
-        console.error("Failed to clear html5QrcodeScanner. ", error);
-      });
+      if (qrCode.isScanning) {
+        qrCode.stop().then(() => {
+          console.log("stopped");
+          qrCode.clear();
+        });
+      }
     };
   }, []);
 
-  return <div id={qrcodeRegionId} />;
+  return (
+    <>
+      <div id={qrcodeRegionId} style={{ width: "100%", height: "488px" }} />
+      <div>
+        <button
+          onClick={() => {
+            qrCode?.stop().then(() => {
+              console.log("stopped");
+              qrCode?.clear();
+            });
+          }}
+        >
+          Back to Returns
+        </button>
+      </div>
+    </>
+  );
 };
 
 export default Html5Plugin;

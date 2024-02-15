@@ -9,14 +9,16 @@ function App() {
     setDecodedResult(decodedResult);
   };
   return (
-    <div className="App">
+    <div className='App'>
       {/* <BarCodeReader /> */}
       {decodedResult && <div>Scanned Result is: {decodedResult.decodedText}</div>}
       <Html5Plugin
-        fps={10}
+        fps={60}
         qrbox={250}
         disableFlip={false}
         qrCodeSuccessCallback={onNewScanResult}
+        mode='environment'
+        aspectRatio={4 / 3}
       />
     </div>
   );
