@@ -1,3 +1,7 @@
-#html5qr-code-full-region__dashboard_section_csr > :nth-child(2){
-    display: none !important;
+#html5qr-code-full-region__dashboard_section_csr > :nth-child(2) {
+  display: none !important;
+}
+
+#html5qr-code-full-region > :nth-child(2) {
+  display: none !important;
 }
