@@ -17,7 +17,7 @@ function App() {
         qrbox={250}
         disableFlip={false}
         qrCodeSuccessCallback={onNewScanResult}
-        mode={"user"}
+        mode='environment'
         aspectRatio={4 / 3}
       />
     </div>
